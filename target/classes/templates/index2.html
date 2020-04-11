@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>CSS+JS实现一个DIV层的展开/折叠效果</title>
+<script >
+    
+
+  
+    //函数声明
+    function Aoo(){
+    	alert("我是一个警告框！");
+    }
+    window.onload = Aoo;// 不加括号
+    </script>
+<style>
+* { margin:0; padding:0;}
+.cont { 
+    display: block; 
+    position: fixed; 
+    top: 25%; 
+    left: 25%; 
+    width: 50%; 
+    height: 50%; 
+    padding: 20px; 
+    border: 10px solid #ddd; 
+    background-color: lightblue; 
+    color: white;
+    z-index:1; 
+    overflow: auto; 
+} 
+body { text-align:center; font:75% Verdana, Arial, Helvetica, sans-serif;}
+h1 { font:125% Arial, Helvetica, sans-serif; text-align:left; font-weight:bolder; background:#FFFFFF;  padding:3px; display:block; color:#99CC00}
+.class1 { width:40%; background:#CCCCCC; position:relative; margin:0 auto; padding:5px;}
+span { position:absolute; right:10px; top:8px; cursor:pointer; color:#99CC00;}
+p { text-align:left; line-height:20px; background:#FFFFFF; padding:3px; margin-top:5px; color:#99CC00}
+#class1content { height:256px;overflow:hidden}
+</style>
+<script>
+function $(element){
+return element = document.getElementById(element);
+}
+function $D(){
+var d=$('class1content');
+var h=d.offsetHeight;
+var maxh=300;
+function dmove(){
+h+=50; //层展开速度
+if(h>=maxh){
+d.style.height='300px';
+clearInterval(iIntervalId);
+}else{
+d.style.display='block';
+d.style.height=h+'px';
+}
+}
+iIntervalId=setInterval(dmove,2);
+}
+function $D2(){
+var d=$('class1content');
+var h=d.offsetHeight;
+var maxh=300;
+function dmove(){
+h-=50;//层收缩速度
+if(h<=0){
+d.style.display='none';
+clearInterval(iIntervalId);
+}else{
+d.style.height=h+'px';
+}
+}
+iIntervalId=setInterval(dmove,2);
+}
+function $use(){
+var d=$('class1content');
+var sb=$('stateBut');
+if(d.style.display=='none'){
+$D();
+sb.innerHTML='收缩';
+}else{
+$D2();
+sb.innerHTML='展开';
+}
+}
+</script>
+</head>
+<body>
+
+<div id="cont_b" class="cont" style="display: none;">
+<a href = "javascript:void(0)" onclick = "document.getElementById('cont_b').style.display='none'">请点这里</a>
+        <p>详情页</p>
+    </div>
+    
+	<a href = "javascript:void(0)" onclick = "document.getElementById('cont_b').style.display='block'">请点这里</a>
+
+<div class="class1">
+<h1>展开/折叠效果 - 代码家园</h1>
+<span id="stateBut" onclick="$use()">收缩</span>
+<p id="class1content">当然你也可以把下面一段代码去掉，只留这一行。
+<p align="center">本特效由</p>
+</p>
+</div>
+</body>
+</html>

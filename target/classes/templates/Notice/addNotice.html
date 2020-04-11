@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>增加公告</title>
+    <script th:src="@{/layui/layui.js}"></script>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+
+    <!-- 引入bootstrap和jQuery -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/jquery-3.2.1.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.form.js}"></script>
+
+    <!-- 引入wangEditor富文本编辑器 ！！！-->
+    <script type="text/javascript" th:src="@{/release/wangEditor.min.js}"></script>
+
+    <style>
+        .breadcrumb {
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            margin-left:10px;
+            margin-right:0px;
+            list-style: none;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        #cover{
+            width:120px;
+            height:120px;
+            margin:0 0 20px 111px;
+            display:none;
+        }
+
+
+    </style>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">后台管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <!-- <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item"><a href="main">首页</a></li>
+        </ul> -->
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="../images/login.png" class="layui-nav-img">
+                    admin
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="##">基本资料</a></dd>
+                    <dd><a href="##">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a th:href="@{/logout}">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">用户后台管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/addNotice">新增文章</a></dd>
+                        <dd><a href="/notice/list">查看文章</a></dd>
+                        <dd><a href="/Collectionlist">查看收藏</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">管理员后台管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/notice/listAll">查看文章</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">超级管理员后台管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/user/list">所有用户</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="articleList"> 首页</a> <span>&nbsp;</span>/<span>&nbsp;&nbsp;</span><a href="#">增加公告</a></li>
+                    <!--<li class="active"><a href="#">新建文章</a></li>-->
+                </ul>
+            </div>
+
+
+
+            <form class="layui-form"  method="post" id="myForm" enctype="multipart/form-data">
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">标题 <span style="color: #FF5722; ">*</span></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="title" id="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+				<label class="layui-form-label">类型<span style="color: #FF5722; ">*</span></label>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input name="type" type="radio" value="1" />游历游记 </label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input name="type" type="radio" value="2" />路线攻略 </label> 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label><input name="type" type="radio" value="3" />其他 </label> 
+				
+                <div>
+                    <textarea name="content" id="articlContent" style="display:none;"></textarea>
+                     
+                </div>
+                
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">展示图 <span style="color: #FF5722; ">*</span></label>
+                    <div class="layui-input-block">
+                        <div  id="editor1" name="picture">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">内容 <span style="color: #FF5722; ">*</span></label>
+                    <div class="layui-input-block">
+                        <div  id="editor" name="content">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                       <input type="button" class="layui-btn" id="submitForm" value="提交">
+                        <!-- <button type="submit" id="submitForm" οnclick="subm()">提交</button> -->
+                        <!-- <button class="layui-btn" id="submitForm">确定</button> -->
+                        <button type="reset" class="layui-btn layui-btn-primary" onclick="getCateIds()">重置</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+
+   
+
+
+
+
+
+<script th:inline="javascript">
+
+    layui.use(['form', 'layedit', 'laydate'], function() {
+        var form = layui.form
+            , layer = layui.layer
+            , laydate = layui.laydate;
+
+    });
+
+    var E = window.wangEditor
+	var editor = new E( '#editor') // 两个参数也可以传入 elem 对象，class 选择器
+	// editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
+	// 配置服务器端地址
+	editor.customConfig.uploadImgServer = '/test/upload'
+	// 将图片大小限制为 3M
+	editor.customConfig.uploadImgMaxSize = 20 * 1024 * 1024;
+	// 自定义上传参数
+	editor.customConfig.uploadFileName = 'imgFile'
+	editor.customConfig.uploadImgHooks = {
+		before : function(xhr, editor, files) {
+			// 图片上传之前触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
+
+			// 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+			// return {
+			//     prevent: true,
+			//     msg: '放弃上传'
+			// }
+		},
+		success : function(xhr, editor, result) {
+			// 图片上传并返回结果，图片插入成功之后触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+		},
+		fail : function(xhr, editor, result) {
+			// 图片上传并返回结果，但图片插入错误时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+		},
+		error : function(xhr, editor) {
+			// 图片上传出错时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+		},
+		timeout : function(xhr, editor) {
+			// 图片上传超时时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+		},
+
+		// 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+		// （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+		customInsert : function(insertImg, result, editor) {
+			// 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+			// insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+			// 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+			var url = result.url
+			insertImg(url)
+
+			// result 必须是一个 JSON 格式字符串！！！否则报错
+		}
+	}
+   // 必须放到有关于编辑器设置前面
+	editor.create()
+
+	
+	/*  */
+	 var EE = window.wangEditor
+	var editor1 = new EE( '#editor1') // 两个参数也可以传入 elem 对象，class 选择器
+	// editor.customConfig.uploadImgShowBase64 = true // 使用 base64 保存图片
+	editor1.customConfig.menus = [
+	'image'// 插入图片
+	];
+	// 配置服务器端地址
+	editor1.customConfig.uploadImgServer = '/test/upload'
+	// 将图片大小限制为 3M
+	editor1.customConfig.uploadImgMaxSize = 20 * 1024 * 1024;
+	// 自定义上传参数
+	editor1.customConfig.uploadFileName = 'imgFile'
+	editor1.customConfig.uploadImgHooks = {
+		before : function(xhr, editor1, files) {
+			// 图片上传之前触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
+
+			// 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+			// return {
+			//     prevent: true,
+			//     msg: '放弃上传'
+			// }
+		},
+		success : function(xhr, editor1, result) {
+			// 图片上传并返回结果，图片插入成功之后触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+		},
+		fail : function(xhr, editor1, result) {
+			// 图片上传并返回结果，但图片插入错误时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+		},
+		error : function(xhr, editor1) {
+			// 图片上传出错时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+		},
+		timeout : function(xhr, editor1) {
+			// 图片上传超时时触发
+			// xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+		},
+
+		// 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+		// （但是，服务器端返回的必须是一个 JSON 格式字符串！！！否则会报错）
+		customInsert : function(insertImg, result, editor1) {
+			// 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+			// insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+
+			// 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
+			var url = result.url
+			insertImg(url)
+
+			// result 必须是一个 JSON 格式字符串！！！否则报错
+		}
+	}
+   // 必须放到有关于编辑器设置前面
+	editor1.create()
+
+    layui.use('element', function(){
+        var element = layui.element;
+
+    });
+
+	</script>
+	
+	<script type="text/javascript">  
+	 $("#submitForm").click(function(){
+		// var id=document.getElementById('id').value;  
+	        var title = document.getElementById('title').value;  
+	        /* var type = document.getElementById('type').value;   */ 
+	        var content = editor.txt.html();  
+	        var picture = editor1.txt.html();  
+	       /*  var obj = document.getElementsByName("type");
+	        for(var i = 0; i < obj.length; i ++) {
+	            if (obj[i].checked) {
+	                var type = obj[i].value;
+	            }
+	        } */
+	        var type1 = document.querySelector('input[name = "type"]:checked').value;
+	        alert(title); 
+	        alert(content);
+	        
+	        
+	        
+	        $.ajax({
+	        type:"POST",
+            url:"/notice",
+            dataType: "json",
+            data : {  
+                "id":null,  
+                "title" : title,  
+                 "type1" : type1,
+                "content" : content,  
+                "picture" : picture,
+                "type":null  
+            },
+            
+            success:function(result){
+                if (result.resultCode == 200){
+                    alert("创建成功");
+                    location.href="/notice/list";
+                }else{
+                    alert("提交失败");
+                    location.reload();
+                }
+            },
+            error:function () {
+                alert("都没有进入啦");
+            }
+        	}); 
+	        
+	 })
+ 	function subm(){  
+		 var id=document.getElementById('id').value;  
+	        var title = document.getElementById('title').value;  
+        var content = editor.txt.html();  
+        alert("Hello\nHow are you?");
+       /*  if(title==""||content==""){  
+            layer.msg('请把内容填写完整！',{icon:2,time:1000});  
+            return false;  
+        }  
+          
+         $.ajax({  
+            type : "post",  
+            url : "newsAddPage.action",  
+            data : {  
+                "id":id,  
+                "title" : title,  
+                "content" : content,  
+                "type":type  
+            },  
+            success : function(result) {  
+                layer.msg('添加成功!',{icon:1,time:1000});  
+            },  
+            error : function(data) {  
+                $.Huimodalalert('修改失败！', 2000);  
+            }  
+        });     */
+        alert(content);
+    }    
+	</script>
+	
+	
+</body>
+</html>

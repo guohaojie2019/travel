@@ -1,0 +1,220 @@
+/* FINTAX HTML5 Template */
+
+@media only screen and (max-width: 1140px){
+	
+    
+    
+	
+}
+
+
+/*--------------------------
+
+-----------------------------------*/
+
+@media only screen and (min-width: 768px){
+	.main-menu .navigation > li > ul,
+	.main-menu .navigation > li > ul > li > ul{
+		display:block !important;
+		visibility:hidden;
+		opacity:0;
+	}
+    
+
+}
+
+
+
+/*--------------------------
+
+-----------------------------------*/
+
+@media only screen and (max-width: 1023px){
+	
+   button.navbar-toggle{
+        border: 1px solid#333;
+        border-radius: 0px;
+    }
+    .navbar-toggler-icon{
+        background: #333;
+    }
+    
+    
+    .banner-info p{
+        width: 80%;
+    }
+    
+    .section-heading {
+        width: 100%;
+    }
+    
+}
+
+
+/*---------------------------------------------
+     MOBILE LANDSCAPE VIEW/ TABLET VIEW
+-----------------------------------------------*/
+
+@media only screen and (max-width: 767px){
+	
+  button.navbar-toggle{
+        border: 1px solid#333;
+        border-radius: 0px;
+    }
+    .navbar-toggler-icon{
+        background: #333;
+    }
+
+    
+    .client-img{
+        margin-bottom: 20px;
+    }
+    .banner-info p{
+        width: 80%;
+    }
+    
+    .section-heading {
+        width: 100%;
+    }
+    .tour-info{
+        padding-right: 0px;
+        margin-bottom: 30px;
+    }
+    .tour-info div{
+        text-align: right;
+    }
+    
+    
+    
+/*    Destinations*/
+    
+    .destinations li {
+        width: 33%;
+    }
+    
+    
+    .testimonial-content{
+        margin-bottom: 20px;
+    }
+    
+    .footer-widget h3{
+        margin-top: 25px;
+    }
+
+    
+}
+
+/*----------------------------------------------
+     MOBILE VIEW
+--------------------------------------------*/
+
+@media only screen and (max-width: 599px){
+	button.navbar-toggle{
+        border: 1px solid#333;
+        border-radius: 0px;
+    }
+    .navbar-toggler-icon{
+        background: #333;
+    }
+    
+    
+    .banner-info h3{
+        font-size: 2.5em;
+    }
+    
+    .banner-info p{
+        width: 80%;
+    }
+    
+    .section-heading {
+        width: 100%;
+    }
+    .tour-info{
+        padding-right: 0px;
+        margin-bottom: 30px;
+    }
+    .tour-info div{
+        text-align: right;
+    }
+    
+    
+    
+/*    Destinations*/
+    
+    .destinations li {
+        width: 50%;
+    }
+    
+    
+    .testimonial-content{
+        margin-bottom: 20px;
+    }
+    
+    .footer-widget h3{
+        margin-top: 25px;
+    }
+    .footer-social{
+        float: left;
+        margin-top: 15px;
+    }
+    
+    
+}
+
+
+/*--------------------------------------------
+
+     MOBLE SMALL /POTRAIT VIEW
+---------------------------------------------*/
+@media only screen and (max-width: 499px) {
+    button.navbar-toggle{
+        border: 1px solid#333;
+        border-radius: 0px;
+    }
+    .navbar-toggler-icon{
+        background: #333;
+    }
+    
+    
+    .banner-info h3{
+        font-size: 2.5em;
+    }
+    
+    .banner-info p{
+        width: 80%;
+    }
+    
+    .section-heading {
+        width: 100%;
+    }
+    .tour-info{
+        padding-right: 0px;
+        margin-bottom: 30px;
+    }
+    .tour-info div{
+        text-align: right;
+    }
+    
+    
+    
+/*    Destinations*/
+    
+    .destinations li {
+        width: 100%;
+    }
+    
+    
+    .testimonial-content{
+        margin-bottom: 20px;
+    }
+    
+    .footer-widget h3{
+        margin-top: 25px;
+    }
+    .footer-social{
+        float: left;
+        margin-top: 15px;
+    }
+    
+    
+}

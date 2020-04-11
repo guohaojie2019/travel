@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="click" jdbcType="INTEGER" property="click" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pojo.Notice">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    
+  </resultMap>
+  
+  
+ 
+  <sql id="Base_Column_List">
+    id, title, createTime, click
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <insert id="insert" parameterType="com.pojo.Notice">
+    insert into notice (id, title, createTime, 
+      click, content,type,picture,author)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{click,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR},#{type,jdbcType=INTEGER},#{picture,jdbcType=LONGVARCHAR},#{author,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultType="com.pojo.Notice">
+    SELECT
+    *
+    FROM notice
+    ORDER By createTime DESC
+  </select>
+  <select id="selectByAuthor" resultType="com.pojo.Notice">
+    SELECT
+    *
+    FROM notice
+    where author=#{name}
+    ORDER By createTime DESC
+  </select>
+  
+  <select id="noticeTravel" resultType="com.pojo.NoticeTravel">
+     SELECT
+    *
+    FROM notice
+    where type=1
+    ORDER By createTime DESC
+  </select>
+  
+  <select id="selectRouteList" resultType="com.pojo.NoticeTravel">
+    SELECT
+    *
+    FROM notice
+    where type=2 
+    ORDER By createTime DESC
+  </select>
+  <select id="selectOtherList" resultType="com.pojo.NoticeTravel">
+    SELECT
+    *
+    FROM notice
+    where type=3 
+    ORDER By createTime DESC
+  </select>
+  
+  <delete id="deleteByPrimaryKey" >
+    delete
+    FROM notice
+    where id=#{deleteByPrimaryKey}
+  </delete>
+  
+</mapper>

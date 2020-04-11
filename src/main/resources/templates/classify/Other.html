@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- bootstrap -->
+
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		
+<script src="bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jquery-3.4.1.min.js"></script>
+<style>
+	.a1{
+		text-align:right;
+	}
+
+       /*第二种方法*/
+       .div1{
+        width: 1000px;
+        
+        top: 100px;
+        left: 200px;
+        
+        }
+
+</style>
+</head>
+
+<script > 
+  $.ajax({
+  type: "get",
+  url: "http://localhost:8080/OtherList",
+  dataType: "json", //回调函数接收数据的数据格式
+  success: function(data){  
+	  
+	/* alert(data[0].title); */
+	var content='';
+	var p='';
+	for(var i=0,travel;travel=data[i++];){
+	   
+	   	content+=
+	   		` 
+	   		
+	   		<li class="span4">
+					<div class="thumbnail" >
+						
+							<div>${travel.picture}</div> 
+						<div class="caption" >
+							<h3 class="title">${travel.title}</h3> 
+								
+							
+							<p>
+							作者：${travel.author}
+							</p>
+							<p>
+								<a class="btn btn-primary" href = "javascript:void(0)" onclick = "document.getElementById(${travel.id}).style.display='block'">浏览</a>
+								<a class="btn" href="/Collectiontravel?noticeId=${travel.id}&Url=Article" onClick="return confirm('收藏成功！');">收藏</a><a>${travel.other3}</a>
+								<a class="btn" href="/Click?noticeId=${travel.id}&Url=Article" onClick="return confirm('点赞成功！');">点赞</a><a>${travel.other4}</a>
+							</p>
+						</div>
+					</div>
+				</li>
+	   	    `
+	   	    
+	   	p+=
+	   		`
+	   		<div id=${travel.id} class="div1" style="display: none; position: absolute;z-index: 100; background:#EEEEE0">
+	   		<a href = "javascript:void(0)"  style="float:right;" onclick = "document.getElementById(${travel.id}).style.display='none'">关闭</a>
+       		<div>${travel.content} </div>
+    		</div>
+	   		
+	   		`
+	    	
+	}
+	$(".thumbnails").append(content);
+	$(".page-header").append(p);
+  } 
+ })
+ 
+</script>
+
+<body >
+<div>
+    <ul class="con">
+        
+    </ul>
+      
+</div>   
+<div class="container-fluid">
+	<div class="row-fluid">
+	
+		<div class="span12" >
+		
+			<div class="page-header">
+				<h1>
+					<a target=_parent href="/Other">其他相关</a><small  ><a target=_parent  href="/index">回到主页</a></small>
+				</h1>
+			</div>
+			
+			<ul class="thumbnails" id="thumbnailsul">
+				
+			</ul>
+			
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>
